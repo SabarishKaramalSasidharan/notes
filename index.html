@@ -1,145 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Sabarish</title>
-  <meta name="description" content="Create Simple Visualisation Charts with Markdown">
-
-  <script src="lib/vega.min.js"></script>
-  <script src="lib/vega-lite.min.js"></script>
-  <script src="lib/vega-embed.min.js"></script>
-  <script src="lib/marked.min.js"></script>
-  <script src="lib/yaml.min.js"></script>
-
-  <style>
-    #visdown-output {max-width: 800px; margin: 0 auto;}
-    #visdown-input {display: none;}
-  </style>
+ <title>Embedding Vega-Lite</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.8/vega.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.4/vega-lite.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-rc7/vega-embed.js"></script>
 </head>
 <body>
 
-<div id="visdown-input">
+ <div id="vis"></div>
 
-# two filter
+ <script type="text/javascript">
+   var yourVlSpec =
+{
+    <!DOCTYPE html>
+<html>
+<head>
+ <title>Embedding Vega-Lite</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.8/vega.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.4/vega-lite.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-rc7/vega-embed.js"></script>
+</head>
+<body>
 
-```vis
-    width: 900
-    height: 600
-    layer:
-    - data:
-      url: data/notes.csv
-      transform:
-      - filter: datum.denom == "1"
-        mark: bar
-        encoding:
-         x:
-          field: year
-          type: N
-         y:
-          field: value
-          type: Q
-         color:
-          field: denom
-          type: N
-    - data:
-      url: data/notes.csv
-      transform:
-      - filter: datum.denom == "500"
-        mark: bar
-        encoding:
-         x:
-          field: year
-          type: N
-         y:
-          field: value
-          type: Q
-         color:
-          field: denom
-          type: N
-```
-    
-    
+ <div id="vis"></div>
 
-    
-    #Money
-# Re.1 vs Rs.500
-    
-```vis
-width: 900
-height: 600
-data:
- url: data/notes.csv
-transform:
-- filter: (datum.denom == 1) || (datum.denom == 500)
-mark: bar
-encoding:
- x:
-  field: year
-  type: N
- y:
-  field: number
-  type: Q
-  stack: null
- color:
-  type: N
-  field: denom
- opacity:
-  value: 0.8
-```
-  
-# Re.1 vs Rs.1000
-
-```vis
-width: 900
-height: 600
-data:
- url: data/notes.csv
-transform:
-- filter: (datum.denom == 1) || (datum.denom == 1000)
-mark: bar
-encoding:
- x:
-  field: year
-  type: N
- y:
-  field: number
-  type: Q
-  stack: center
- color:
-  type: N
-  field: denom   
-```
-    
-# Re.1 vs Rs.500 vs Rs.1000
-
-```vis
-width: 900
-height: 600
-data:
- url: data/notes.csv
-transform:
-- filter: (datum.denom == 1) || (datum.denom == 500) || (datum.denom == 1000)
-mark: bar 
-encoding:
- x:
-  field: year
-  type: N
- y:
-  field: number
-  type: Q
-  stack: center
- color:
-  type: N
-  field: denom   
-```
-    
-
-
-</div>
-<div id="visdown-output"></div>
-<script src="visdown.js"></script>
-
+ <script type="text/javascript">
+   var yourVlSpec =
+{
+ "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+ "description": "A simple bar chart with embedded data.",
+ "height": 1800,
+ "width": 800,
+ "data": {
+   "url": "https://raw.githubusercontent.com/amitkaps/visdown/master/data/notes.csv"
+ 	},
+"vconcat":[
+    {"mark": "bar",
+ 	"encoding": {
+   	"x": {"field": "year", "type": "ordinal"
+},
+   	"y": {"field": "money",  "type": "quantitative",
+"size": { "field": "value",
+         	 "type": "quantitative"}
+},
+   	"color": { "field": "denom",
+     	  "type": "nominal",
+     	 }
+}
+   
+    },
+ 	{ "mark": "circle",
+      "encoding": {
+      "x": {"field": "year", "type": "ordinal"},
+      "y": {"field": "denom", "type": "ordinal"},
+"size": {"field": "number", "type": "quantitative" },
+      "color": {"field": "denom",
+"type": "nominal",
+"value": "blue"}
+ 	}
+    }
+]
+}
+   vegaEmbed("#vis", yourVlSpec);
+ </script>
+</body>
+</html>
+}
+   
+   vegaEmbed("#vis", yourVlSpec);
+ </script>
 </body>
 </html>
