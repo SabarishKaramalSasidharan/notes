@@ -36,7 +36,11 @@
    "url": "https://raw.githubusercontent.com/amitkaps/visdown/master/data/notes.csv"
  	},
        "resolve": { "axis": {"y": "independent"}},
-       
+        "transform": [
+    {
+      "filter": "(datum.denom == 1) || (datum.denom == 500)"
+    }
+  ],
 "layer":[
     {"mark": "bar",
  	"encoding": {
@@ -47,19 +51,17 @@
          	 "type": "quantitative"}
 },
    	"color": { "field": "denom",
-     	  "type": "nominal",
-     	 }
+     	  "type": "nominal"}
 }
    
     },
  	{ "mark": "circle",
       "encoding": {
       "x": {"field": "year", "type": "ordinal"},
-      "y": {"field": "denom", "type": "ordinal"},
-"size": {"field": "number", "type": "quantitative" },
+      "y": {"field": "money", "type": "quantitative"},
+"size": {"field": "value", "type": "quantitative" },
       "color": {"field": "denom",
-"type": "nominal",
-"value": "blue"}
+"type": "nominal"}
  	}
     }
 ]
