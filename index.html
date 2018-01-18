@@ -26,7 +26,7 @@
 
 ```vis
     width: 900
-    height: 900
+    height: 600
     layer:
     - data:
       url: data/notes.csv
@@ -43,21 +43,21 @@
          color:
           field: denom
           type: N
-     - data:
-       url: data/notes.csv
-       transform:
-       - filter: datum.denom == "500"
-         mark: bar
-         encoding:
-          x:
-           field: year
-           type: N
-          y:
-           field: value
-           type: Q
-          color:
-           field: denom
-           type: N
+    - data:
+      url: data/notes.csv
+      transform:
+      - filter: datum.denom == "500"
+        mark: bar
+        encoding:
+         x:
+          field: year
+          type: N
+         y:
+          field: value
+          type: Q
+         color:
+          field: denom
+          type: N
 ```
     
     
