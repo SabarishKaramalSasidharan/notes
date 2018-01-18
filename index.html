@@ -35,13 +35,13 @@
  "data": {
    "url": "https://raw.githubusercontent.com/amitkaps/visdown/master/data/notes.csv"
  	},
-       
+       "resolve": { "axis": {"y": "independent"}},
         "transform": [
     {
       "filter": "(datum.denom == 1) || (datum.denom == 500)"
     }
   ],
-"layer":[
+
     {"mark": "bar",
  	"encoding": {
    	"x": {"field": "year", "type": "ordinal"
@@ -53,17 +53,7 @@
      	  "type": "nominal"}
 }
    
-    },
- 	{ "mark": "bar",
-      "encoding": {
-      "x": {"field": "year", "type": "ordinal"},
-      "y": {"field": "value", "type": "quantitative"},
-
-      "color": {"field": "denom",
-"type": "nominal"}
- 	}
     }
-]
 }
 
 vegaEmbed("#vis", yourVlSpec);
