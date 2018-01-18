@@ -22,7 +22,48 @@
 
 <div id="visdown-input">
 
-#Money
+# two filter
+
+```vis
+    width: 900
+    height: 900
+    layer:
+    - data:
+      url: data/notes.csv
+      transform:
+      - filter: datum.denom == "1"
+        mark: bar
+        encoding:
+         x:
+          field: year
+          type: N
+         y:
+          field: value
+          type: Q
+         color:
+          field: denom
+          type: N
+     - data:
+       url: data/notes.csv
+       transform:
+       - filter: datum.denom == "500"
+         mark: bar
+         encoding:
+          x:
+           field: year
+           type: N
+          y:
+           field: value
+           type: Q
+          color:
+           field: denom
+           type: N
+```
+    
+    
+
+    
+    #Money
 # Re.1 vs Rs.500
     
 ```vis
