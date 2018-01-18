@@ -13,45 +13,64 @@
  <script type="text/javascript">
    var yourVlSpec =
 {
- {
-  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-  "layer": [
-    {
-      "mark": "bar",
-      "data": {"url": "https://raw.githubusercontent.com/amitkaps/visdown/master/data/notes.csv"},
-      "transform":
-        [{"filter": {"field": "datum.denom", "equal": 500}}],
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "N"
-        },
-        "y": {
-          "field": "value",
-          "type": "quantitative"
-          }
-      }
+    <!DOCTYPE html>
+<html>
+<head>
+ <title>Embedding Vega-Lite</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.8/vega.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.4/vega-lite.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-rc7/vega-embed.js"></script>
+</head>
+<body>
+
+ <div id="vis"></div>
+
+ <script type="text/javascript">
+   var yourVlSpec =
+{
+ "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+ "description": "A simple bar chart with embedded data.",
+ "height": 1800,
+ "width": 800,
+ "data": {
+   "url": "https://raw.githubusercontent.com/amitkaps/visdown/master/data/notes.csv"
+ 	},
+"vconcat":[
+    {"mark": "bar",
+ 	"encoding": {
+   	"x": {"field": "year", "type": "ordinal"
+},
+   	"y": {"field": "money",  "type": "quantitative",
+"size": { "field": "number",
+         	 "type": "ordinal"}
+},
+   	"color": { "field": "denom",
+     	  "type": "nominal",
+     	  "scale": {"range":
+['red','#f46d43','#fdae61',
+'#fee08b','#d53e4f','#e6f598',
+'#abdda4','#66c2a5','#3288bd']}
+}
+   }
     },
-    {
-      "mark": "line",
-      "data": {"url": "data/notes.csv"},
-       "transform":
-        [ {"filter": {"field": "datum.denom", "equal": 1}}],
+ 	{ "mark": "circle",
       "encoding": {
-        "x": {
-          "field": "year",
-          "type": "N"
-        },
-        "y": {
-          "field": "value",
-          "type": "quantitative"
-          }
-      }
+      "x": {"field": "year", "type": "ordinal"},
+      "y": {"field": "denom", "type": "ordinal"},
+"size": {"field": "number", "type": "quantitative" },
+      "color": {"field": "denom",
+"type": "nominal",
+"value": "blue"}
+ 	}
     }
-  ]
+]
 }
- 
+   vegaEmbed("#vis", yourVlSpec);
+ </script>
+</body>
+</html>
 }
+   
    vegaEmbed("#vis", yourVlSpec);
  </script>
 </body>
