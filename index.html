@@ -1,68 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
- <title>Embedding Vega-Lite</title>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.8/vega.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.4/vega-lite.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-rc7/vega-embed.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Visdown - Markdown for Visualisation</title>
+  <meta name="description" content="Create Simple Visualisation Charts with Markdown">
+
+  <script src="lib/vega.min.js"></script>
+  <script src="lib/vega-lite.min.js"></script>
+  <script src="lib/vega-embed.min.js"></script>
+  <script src="lib/marked.min.js"></script>
+  <script src="lib/yaml.min.js"></script>
+
+  <style>
+    #visdown-output {max-width: 800px; margin: 0 auto;}
+    #visdown-input {display: none;}
+  </style>  
 </head>
 <body>
 
- <div id="vis"></div>
+<div id="visdown-input">  
+  
+# Bar Plot
+  
+```vis
+width: 600
+height: 400
 
- <script type="text/javascript">
-   var yourVlSpec =
-{
-    <!DOCTYPE html>
-<html>
-<head>
- <title>Embedding Vega-Lite</title>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.8/vega.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.4/vega-lite.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-rc7/vega-embed.js"></script>
-</head>
-<body>
+layer:
+- data:
+   url: data/notes.csv
+  transform:
+  - filter: datum.denom == "0100"
+  mark: line
+  encoding:
+    x:
+     field: year
+     type: nominal
+    y:
+     field: number
+     type: quantitative
+     axis:
+      orient: left
+     
+    color:
+     value: blue
+    opacity:
+     value: 1
+- data:
+   url: data/notes.csv
 
- <div id="vis"></div>
+  mark: area
+  encoding:
+    x:
+     field: year
+     type: nominal
+    y:
+     aggregate: sum
+     field: number
+     type: quantitative
+     axis:
+      orient: right
+     stack: null
+     
+    color:
+     field: value
+     type: nominal
+    opacity:
+     value: 0.1
 
- <script type="text/javascript">
-   var yourVlSpec =
-{
- "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
- "description": "A simple bar chart with embedded data.",
- "height": 900,
- "width": 600,
- "data": {
-   "url": "https://raw.githubusercontent.com/amitkaps/visdown/master/data/notes.csv"
- 	},
-       "resolve": { "axis": {"y": "independent"}},
-        "transform": [
-    {
-      "filter": "(datum.denom == 1) || (datum.denom == 500)"
-    }
-  ],
+```
+    
 
-    {"mark": "bar",
- 	"encoding": {
-   	"x": {"field": "year", "type": "ordinal"
-},
-   	"y": {"field": "value",  "type": "quantitative",
+```vis
+width: 600
+height: 400
+data:
+  url: data/notes.csv
+transform:
+- calculate: 'datum.denom == 100 ? "Rs.100" : "Rest"'
+  as: "Edited Data"
+mark: area
+encoding:
+  x:
+    field: year
+    type: nominal
+  y:
+    aggregate: sum
+    field: number
+    type: quantitative
+    axis:
+      orient: left
+  color:
+    field: "Edited Data"
+    type: N
+    opacity:
+      value: 1
 
-},
-   	"color": { "field": "denom",
-     	  "type": "nominal"}
-}
-   
-    }
-}
 
-vegaEmbed("#vis", yourVlSpec);
- </script>
-</body>
-</html>
-}
-   
-   vegaEmbed("#vis", yourVlSpec);
- </script>
+
+```
+    
+</div>
+<div id="visdown-output"></div>
+<script src="visdown.js"></script>
+
 </body>
 </html>
